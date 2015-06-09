@@ -19,6 +19,7 @@
 #define KVNPrepareBlockSelf() __weak typeof(self) KVNBlockSelf = self
 #define KVNIpad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 #define KVNSystemVersionGreaterOrEqual_iOS_8 ([[[UIDevice currentDevice] systemVersion] compare:@"8" options:NSNumericSearch] != NSOrderedAscending)
+#define KVNSystemVersionGreaterOrEqual_iOS_7 ([[[UIDevice currentDevice] systemVersion] compare:@"7" options:NSNumericSearch] != NSOrderedAscending)
 #define KVNRadiansToDegress(radians) ((radians) * (180.0 / M_PI))
 
 typedef NS_ENUM(NSUInteger, KVNProgressStyle) {
@@ -964,7 +965,7 @@ static KVNProgressConfiguration *configuration;
 		self.contentView.image = backgroundImage;
 	}
     
-    if (configuration.usingSystemBlurView) {
+    if (configuration.usingSystemBlurView && KVNSystemVersionGreaterOrEqual_iOS_7) {
         UIView *superView = [self isFullScreen] ? self.backgroundImageView : self.contentView;
         self.blurView.frame = superView.bounds;
         [superView insertSubview:self.blurView atIndex:0];
@@ -1366,7 +1367,7 @@ static KVNProgressConfiguration *configuration;
 }
 
 - (UIToolbar *)blurView {
-    if (!_blurView) {
+    if (!_blurView && KVNSystemVersionGreaterOrEqual_iOS_7) {
         _blurView = [[UIToolbar alloc] init];
         _blurView.barStyle = UIBarStyleDefault;
         _blurView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
