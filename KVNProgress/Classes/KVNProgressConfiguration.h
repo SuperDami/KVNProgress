@@ -23,6 +23,7 @@ typedef NS_ENUM(NSUInteger, KVNProgressBackgroundType) {
 /** Configuration of UI for a <code>KVNProgress</code> instance. */
 @interface KVNProgressConfiguration : NSObject <NSCopying>
 
+@property (nonatomic) BOOL usingSystemBlurView;
 #pragma mark - Background
 
 /** Color of the background view. Is not used when backgroundType is KVNProgressBackgroundTypeBlurred. */

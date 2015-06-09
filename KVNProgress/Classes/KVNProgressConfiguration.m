@@ -41,6 +41,7 @@
 		
 		_tapBlock = nil;
 		_allowUserInteraction = NO;
+        _usingSystemBlurView = YES;
 	}
 	
 	return self;
@@ -78,7 +79,8 @@
 	
 	copy.tapBlock = self.tapBlock;
 	copy.allowUserInteraction = self.allowUserInteraction;
-	
+    copy.usingSystemBlurView = self.usingSystemBlurView;
+
 	return copy;
 }
 

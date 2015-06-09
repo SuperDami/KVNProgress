@@ -61,6 +61,7 @@
 	configuration.lineWidth = 1.0f;
 	configuration.showStop = YES;
 	configuration.stopRelativeHeight = 0.3f;
+    configuration.usingSystemBlurView = YES;
 	
 	configuration.tapBlock = ^(KVNProgress *progressView) {
 		[KVNProgress dismiss];

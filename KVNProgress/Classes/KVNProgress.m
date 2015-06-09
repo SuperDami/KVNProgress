@@ -71,6 +71,7 @@ static KVNProgressConfiguration *configuration;
 @property (nonatomic, weak) IBOutlet UIView *circleProgressView;
 @property (nonatomic, weak) IBOutlet UILabel *statusLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *backgroundImageView;
+@property (nonatomic, strong)UIToolbar *blurView;
 
 @property (nonatomic, strong) CAShapeLayer *checkmarkLayer;
 @property (nonatomic, strong) CAShapeLayer *crossLayer;
@@ -962,6 +963,21 @@ static KVNProgressConfiguration *configuration;
 		
 		self.contentView.image = backgroundImage;
 	}
+    
+    if (configuration.usingSystemBlurView) {
+        UIView *superView = [self isFullScreen] ? self.backgroundImageView : self.contentView;
+        self.blurView.frame = superView.bounds;
+        [superView insertSubview:self.blurView atIndex:0];
+        
+        self.blurView.hidden = NO;
+        self.backgroundColor = [UIColor clearColor];
+        self.backgroundImageView.backgroundColor = [UIColor clearColor];
+        self.contentView.backgroundColor = [UIColor clearColor];
+        self.contentView.image = nil;
+        self.backgroundImageView.image = nil;
+    } else {
+        self.blurView.hidden = YES;
+    }
 }
 
 - (void)updateBackgroundConstraints
@@ -1349,4 +1365,12 @@ static KVNProgressConfiguration *configuration;
 	}
 }
 
+- (UIToolbar *)blurView {
+    if (!_blurView) {
+        _blurView = [[UIToolbar alloc] init];
+        _blurView.barStyle = UIBarStyleDefault;
+        _blurView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    }
+    return _blurView;
+}
 @end
